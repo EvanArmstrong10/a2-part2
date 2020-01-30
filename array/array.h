@@ -1,7 +1,7 @@
 
 #pragma once
 #include "object.h"
-#include "str.h"
+#include "string.h"
 
 class Array : public Object {
     public:
