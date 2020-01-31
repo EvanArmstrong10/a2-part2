@@ -107,7 +107,7 @@ class Queue : public Object
         // Removes all items from this Queue
         void dequeue_all()
         {
-            delete queue_;
+            delete[] queue_;
             queue_ = new Object*[2];
             size_ = 0;
             capacity_ = 2;
