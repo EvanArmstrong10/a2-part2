@@ -21,7 +21,6 @@ class String : public Object {
   String(const char* s) {
         char* s1 = const_cast<char*>(s);
         size_ = strlen(s1);
-        printf("%i\n", size_);
         val_ = new char[size_+1];
         for (size_t ii = 0; ii < size_; ii++) {
             val_[ii] = s1[ii];

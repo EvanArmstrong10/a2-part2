@@ -2,7 +2,6 @@
 #pragma once
 #include "object.h"
 #include "string.h"
-#include "stdio.h"
 
 class Array : public Object {
     public:
@@ -12,9 +11,15 @@ class Array : public Object {
 
         // array constructor allocates a list of size 1 of Objects
         Array() {
+            capacity_ = 1;
             data_ = new Object*[1];
             size_ = 0;
-            capacity_ = 1;
+        }
+
+        Array(size_t size) {
+            size_ = size;
+            capacity_ = size;
+            data_ = new Object*[size];
         }
 
         // virtual destructor
@@ -69,6 +74,7 @@ class Array : public Object {
         }
 
         virtual Object* remove(int index) {
+            if (index < 0 || index >= size_) return NULL;
             Object* temp = data_[index];
             for (int ii = index + 1; ii < size_; ii++) {
                 data_[ii-1] = data_[ii];
@@ -77,7 +83,7 @@ class Array : public Object {
             return temp;
         }
 
-        virtual int size() {
+        virtual size_t size() {
             return size_;
         }
 };
@@ -170,7 +176,6 @@ class IntArray : public Object {
         }
 
         int get(int index) {
-            printf("%i %i\n", size_, index);
             if (index >= 0 && index < size_) {
                 return data_[index];
             }
@@ -209,7 +214,7 @@ class IntArray : public Object {
             return temp;
         }
 
-        int size() {
+        size_t size() {
             return size_;
         }
 };
@@ -279,7 +284,7 @@ class FloatArray : public Object {
             return temp;
         }
 
-        int size() {
+        size_t size() {
             return size_;
         }
 };
@@ -349,7 +354,7 @@ class BoolArray : public Object {
             return temp;
         }
 
-        int size() {
+        size_t size() {
             return size_;
         }
 };
