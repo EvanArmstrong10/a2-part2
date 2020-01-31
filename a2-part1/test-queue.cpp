@@ -46,26 +46,21 @@ void test2()
 
     String *s = new String("Hello");
     String *t = new String("World");
-    puts("here1");
     String *u = s->concat(t);
-    puts("here2");
     Queue *q1 = new Queue();
 
     q1->enqueue(s);
     q1->enqueue(t);
     q1->enqueue(u);
-    puts("here1");
     t_true(q1->dequeue()->equals(s));
     t_true(q1->dequeue()->equals(t));
     t_false(q1->dequeue()->equals(s));
-    puts("here");
     OK("1");
 }
 
 //test equals
 void test3()
 {
-    puts("3");
     String *s = new String("Hello");
     String *t = new String("World");
     String *u = s->concat(t);
@@ -115,6 +110,7 @@ void test5()
 }
 
 //test contains
+
 void test6()
 {
     String *s = new String("Hello");
@@ -161,6 +157,7 @@ void test8()
     Queue *q1 = new Queue();
 
     t_true(q1->queue_size() == 0);
+
     q1->enqueue(s);
     q1->enqueue(t);
     t_true(q1->queue_size() == 2);

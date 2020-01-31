@@ -87,6 +87,11 @@ class Queue : public Object
             }
         }
 
+        // Returns the element at index
+        Object*  get(size_t index) {
+            return queue_[index];
+        }
+
         // Checks to see if the Queue contains a specific Object already
         bool contains(Object *o)
         {
@@ -94,8 +99,8 @@ class Queue : public Object
                 return false;
             }
             else {
-                for (size_t x = 0; x < size_ - 1; x++) {
-                    if (queue_[x]->equals(0)) {
+                for (size_t x = 0; x < size_; x++) {
+                    if (get(x)->equals(o)) {
                         return true;
                     }
                 }
@@ -116,6 +121,7 @@ class Queue : public Object
         {
             delete queue_;
             queue_ = new Object*[2];
+            size_ = 0;
         }
 
         // Returns size of queue
