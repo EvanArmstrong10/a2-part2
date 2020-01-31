@@ -2,7 +2,6 @@
 #pragma once
 #include "object.h"
 #include "string.h"
-#include "stdio.h"
 
 class Array : public Object {
     public:
@@ -12,9 +11,9 @@ class Array : public Object {
 
         // array constructor allocates a list of size 1 of Objects
         Array() {
-            data_ = new Object*[1];
+            capacity_ = 4;
+            data_ = new Object*[capacity_];
             size_ = 0;
-            capacity_ = 1;
         }
 
         // virtual destructor
@@ -87,9 +86,9 @@ class StrArray : public Array {
         String** data_;
 
         StrArray() {
-            data_ = new String*[1];
+            capacity_ = 4;
+            data_ = new String*[capacity_];
             size_ = 0;
-            capacity_ = 1;
         }
 
         ~StrArray() {
@@ -150,9 +149,9 @@ class IntArray : public Object {
         int* data_;
 
         IntArray() {
-            data_ = new int[1];
+            capacity_ = 4;
+            data_ = new int[capacity_];
             size_ = 0;
-            capacity_ = 1;
         }
 
         ~IntArray() {
@@ -221,9 +220,9 @@ class FloatArray : public Object {
         float* data_;
 
         FloatArray() {
-            data_ = new float[1];
+            capacity_ = 4;
+            data_ = new float[capacity_];
             size_ = 0;
-            capacity_ = 1;
         }
 
         ~FloatArray() {
@@ -291,9 +290,9 @@ class BoolArray : public Object {
         bool* data_;
 
         BoolArray() {
-            data_ = new bool[1];
+            capacity_ = 4;
+            data_ = new bool[capacity_];
             size_ = 0;
-            capacity_ = 1;
         }
 
         ~BoolArray() {
