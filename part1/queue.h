@@ -124,12 +124,13 @@ class Queue : public Object
         {
             Queue* temp = dynamic_cast<Queue*>(o);
             if (temp == 0) return false;
+            if (size_ != temp->queue_size()) return false;
             for (size_t x = 0; x < size_; x++) {
                 if (!(temp->queue_[x]->equals(queue_[x]))) {
                     return false;
                 }
             }
-            return size_ == temp->queue_size();
+            return true;
         }
 
         // Generates a hash value for this Object
