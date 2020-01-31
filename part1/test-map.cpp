@@ -35,21 +35,6 @@ String *dv = new String("val_4");
 Object *o = new Object();
 Object *ov = new Object();
 
-
-void delete_objects() {
-    delete a;
-    delete b;
-    delete c;
-    delete d;
-    delete av;
-    delete bv;
-    delete cv;
-    delete dv;
-    delete o;
-    delete ov;
-}
-
-
 void string_test() {
   String *s = new String("Hello");
   String *t = new String("World");
@@ -69,16 +54,15 @@ void object_test() {
   OK("Object_test");
 }
 
-/*
 void string_advance_test() {
   String *s = new String("Hello");
   String *t = new String("World");
   String *u = s->concat(t);
-  t_true(s->hash() == u->hash());
+  t_true(s->hash() != u->hash());
   t_false(s->hash() == t->hash());
   OK("string_advance_test");
 }
-*/
+
 void test_constructor() {
   Hashmap *map = new Hashmap();
   t_true(map->size() == 0);
@@ -128,14 +112,11 @@ void test_advance_method() {
 }
 
 int main(void) {
-  puts("god");
-  puts("speed");
   object_test();
   string_test();
-  //string_advance_test();
+  string_advance_test();
   test_constructor();
   test_basic_method();
   test_advance_method();
-  delete_objects();
   return 0;
 }

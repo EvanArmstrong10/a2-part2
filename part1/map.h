@@ -18,11 +18,6 @@ class Hashmap_pair : public Object {
         val_ = val;
     }
     ~Hashmap_pair() {
-        /*
-         * dont know about these
-        delete key_;
-        delete val_;
-        */
     }
 
     // getter method that help to get value from Hashmap_pair.
@@ -38,7 +33,6 @@ class Hashmap_pair : public Object {
 // and capcity is the physical size of hashmap.
 class Hashmap : public Object {
   public:
-
     
     Array* data;
     IntArray* indeces;
@@ -73,7 +67,7 @@ class Hashmap : public Object {
 
 
     // calculates a pair's index in the data array based on its hash
-    size_t index_key(Object* o) {
+    size_t index_key_(Object* o) {
         return o->hash() % capacity_ + 1;
     }
 
@@ -92,13 +86,13 @@ class Hashmap : public Object {
     // Returns the value to which the specified key is mapped,
     // or null if this map contains no mapping for the key.
     Object *get(Object *key) {
-        return data->get(index_key(key));
+        return data->get(index_key_(key));
     }
 
     // Associates the specified value with the specified key in this map.
     void put(Object *key, Object *val) {
 
-        size_t index = index_key(key);
+        size_t index = index_key_(key);
         Object* temp = data->get(index);
         Hashmap_pair* new_pair = new Hashmap_pair(key, val);
         
@@ -127,7 +121,7 @@ class Hashmap : public Object {
 
     // Removes the mapping for the specified key from this map if present.
     void remove(Object *key) {
-        size_t index = index_key(key);
+        size_t index = index_key_(key);
         Object* pair = data->remove(index);
         if (data->remove(index) == NULL) return;
 
