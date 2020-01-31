@@ -55,7 +55,6 @@ public:
   /* Inherited from Object, checks equality between an String and an Object */
   // professor provided
   bool equals(Object* const obj) {
-    puts(val_);
     if (obj == nullptr) return false;
     String* tgt = dynamic_cast<String*>(obj);
     if (tgt == nullptr) return false;
