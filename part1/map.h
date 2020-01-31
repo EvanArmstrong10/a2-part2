@@ -2,7 +2,6 @@
 #include "object.h"
 #include "string.h"
 #include "array.h"
-#include <stdio.h>
 #include <stdlib.h>
 
 // Hashmap_pair is a node, which is used to to store a pair of key and value.
@@ -107,7 +106,6 @@ class Hashmap : public Object {
         // if so, delete existing pair and create new one
         Hashmap_pair* p = dynamic_cast<Hashmap_pair*>(temp);
         if (p->getKey()->equals(key)) {
-            puts("same key");
             delete p;
             data->set(index, new_pair);
         }
