@@ -10,7 +10,7 @@ void test_get() {
     String* s = new String("Fling");
     a->set(0, s);
     assert(a->get(0)->equals(s));
-    delete a;
+    delete[] a;
 }
 
 void test_set() {
@@ -18,7 +18,6 @@ void test_set() {
     String* s = new String("Fling");
     a->set(0, s);
     assert(a->data_[0]->equals(s));
-    delete a;
 }
 
 void test_push_back() {
@@ -26,7 +25,6 @@ void test_push_back() {
     String* s = new String("Fling");
     a->push_back(s);
     assert(1 == a->size());
-    delete a;
 }
 
 void test_swap() {
