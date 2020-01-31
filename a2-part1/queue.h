@@ -37,6 +37,7 @@ class Queue : public Object
         }
         queue_ = temp;
         capacity_ *= 2;
+        delete[] temp;
     }
 
 
@@ -139,7 +140,7 @@ class Queue : public Object
             }
             else {
                 for (size_t x = 0; x < size_; x++) {
-                    if (!(temp->queue_[x]->equals(queue_[x]))) {
+                    if (temp->queue_[x]->equals(queue_[x])) {
                         return false;
                     }
                 }
