@@ -29,7 +29,8 @@ class Hashmap : public Object {
     public:
         Hashmap_pair **data;
         size_t size_;
-        size_t capacity_; 
+        size_t capacity_;
+        
         //constructor
         //capcity will be initilized as 4, size is 0 by default.
         Hashmap() {
