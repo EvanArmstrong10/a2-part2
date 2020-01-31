@@ -16,6 +16,7 @@ class Array : public Object {
             size_ = 0;
         }
 
+        // array constructor allocates a list of size of Objects
         Array(size_t size) {
             size_ = size;
             capacity_ = size;
@@ -59,6 +60,7 @@ class Array : public Object {
             }
         }
         
+        // adds the given element to the back of the array
         virtual void push_back(Object* element) {
             if (capacity_ == size_) {
                 resize_();
@@ -67,12 +69,15 @@ class Array : public Object {
             size_++;
         }
 
+        // swaps the values at the given indices 
         virtual void swap(int index1, int index2) {
             Object* temp = data_[index1];
             data_[index1] = data_[index2];
             data_[index2] = temp;
         }
 
+        // removes value at given index, moves rest of array down after
+        // returns value at given index
         virtual Object* remove(int index) {
             if (index < 0 || index >= size_) return NULL;
             Object* temp = data_[index];
@@ -83,6 +88,7 @@ class Array : public Object {
             return temp;
         }
 
+        // returns the size of this array
         virtual size_t size() {
             return size_;
         }
@@ -92,16 +98,19 @@ class StrArray : public Array {
     public:
         String** data_;
 
+        // String array constructor allocates a list of size 1 of Strings
         StrArray() {
             data_ = new String*[1];
             size_ = 0;
             capacity_ = 1;
         }
 
+        // destructor
         ~StrArray() {
             delete[] data_;
         }
 
+        // doubles the capacity of the data
         void resize_() {
             capacity_ = capacity_ * 2;
             String** new_data = new String*[capacity_];
@@ -112,6 +121,7 @@ class StrArray : public Array {
             data_ = new_data;
         }
 
+        // returns the String at the given index
         String* get(int index) {
             if (index >= 0 && index < size_) {
                 return data_[index];
@@ -121,6 +131,7 @@ class StrArray : public Array {
             }
         }
 
+        // sets the value at the given index to the given string
         void set(int index, String* element) {
             if (index >= 0 && index <= size_) {
                 if (size_ == capacity_) {
@@ -131,6 +142,7 @@ class StrArray : public Array {
             }
         }
 
+        // adds the given string to the back of the array
         void push_back(String* element) {
             if (capacity_ == size_) {
                 resize_();
@@ -139,6 +151,8 @@ class StrArray : public Array {
             size_++;
         }
 
+        // removes the string at the given index, push the rest of the array down
+        // returns the string at the given index
         String* remove(int index) {
             String* temp = data_[index];
             for (int ii = index + 1; ii < size_; ii++) {
@@ -155,16 +169,19 @@ class IntArray : public Object {
         int capacity_; 
         int* data_;
 
+        // int array constructor allocates a list of size 1 of ints
         IntArray() {
             data_ = new int[1];
             size_ = 0;
             capacity_ = 1;
         }
 
+        // deconstructor
         ~IntArray() {
             delete[] data_;
         }
 
+        // doubles the capacity of this array
         void resize_() {
             capacity_ = capacity_ * 2;
             int* new_data = new int[capacity_];
@@ -175,12 +192,14 @@ class IntArray : public Object {
             data_ = new_data;
         }
 
+        // returns the int at the given index
         int get(int index) {
             if (index >= 0 && index < size_) {
                 return data_[index];
             }
         }
 
+        // sets the value at the given index to the given int
         void set(int index, int element) {
             if (index >= 0 && index <= size_) {
                 if (size_ == capacity_) {
@@ -191,6 +210,7 @@ class IntArray : public Object {
             }
         }
 
+        // adds the given int to the back of the array
         void push_back(int element) {
             if (capacity_ == size_) {
                 resize_();
@@ -199,12 +219,15 @@ class IntArray : public Object {
             size_++;
         }
 
+        // swaps the int at the first given index with the second given index
         void swap(int index1, int index2) {
             int temp = data_[index1];
             data_[index1] = data_[index2];
             data_[index2] = temp;
         }
 
+        // removes int at given index, pushes the rest of the array down
+        // returns the int at the given index
         int remove(int index) {
             int temp = data_[index];
             for (int ii = index + 1; ii < size_; ii++) {
@@ -214,6 +237,7 @@ class IntArray : public Object {
             return temp;
         }
 
+        // returns the size of the array
         size_t size() {
             return size_;
         }
@@ -225,16 +249,19 @@ class FloatArray : public Object {
         int capacity_; 
         float* data_;
 
+        // float array constructor allocates a list of size 1 of floats
         FloatArray() {
             data_ = new float[1];
             size_ = 0;
             capacity_ = 1;
         }
 
+        // deconstructor
         ~FloatArray() {
             delete[] data_;
         }
 
+        // doubles the capacity
         void resize_() {
             capacity_ = capacity_ * 2;
             float* new_data = new float[capacity_];
@@ -245,12 +272,14 @@ class FloatArray : public Object {
             data_ = new_data;
         }
 
+        // returns the float at the given index
         float get(int index) {
             if (index >= 0 && index < size_) {
                 return data_[index];
             }
         }
         
+        // sets the value at the given index to the given float
         void set(int index, float element) {
             if (index >= 0 && index <= size_) {
                 if (size_ == capacity_) {
@@ -261,6 +290,7 @@ class FloatArray : public Object {
             }
         }
 
+        // adds the given float to the end of the array
         void push_back(float element) {
             if (capacity_ == size_) {
                 resize_();
@@ -269,12 +299,15 @@ class FloatArray : public Object {
             size_++;
         }
 
+        // swaps the value at the first given index with the value at the second given index
         void swap(int index1, int index2) {
             int temp = data_[index1];
             data_[index1] = data_[index2];
             data_[index2] = temp;
         }
 
+        // removes the float at the given index and returns it
+        // pushes the rest of the array down
         float remove(int index) {
             float temp = data_[index];
             for (int ii = index + 1; ii < size_; ii++) {
@@ -284,6 +317,7 @@ class FloatArray : public Object {
             return temp;
         }
 
+        // returns the size of the array
         size_t size() {
             return size_;
         }
@@ -295,16 +329,19 @@ class BoolArray : public Object {
         int capacity_; 
         bool* data_;
 
+        // bool array constructor allocates a list of size 1 of bools
         BoolArray() {
             data_ = new bool[1];
             size_ = 0;
             capacity_ = 1;
         }
 
+        // deconstructor
         ~BoolArray() {
             delete[] data_;
         }
 
+        // doubles the capacity
         void resize_() {
             capacity_ = capacity_ * 2;
             bool* new_data = new bool[capacity_];
@@ -315,12 +352,14 @@ class BoolArray : public Object {
             data_ = new_data;
         }
 
+        // returns the bool at the given index
         bool get(int index) {
             if (index >= 0 && index < size_) {
                 return data_[index];
             }
         }
 
+        // sets the value of the given index to the given bool
         void set(int index, bool element) {
             if (index >= 0 && index <= size_) {
                 if (size_ == capacity_) {
@@ -331,6 +370,7 @@ class BoolArray : public Object {
             }
         }
 
+        // adds the given bool to the end of the array
         void push_back(bool element) {
             if (capacity_ == size_) {
                 resize_();
@@ -339,12 +379,15 @@ class BoolArray : public Object {
             size_++;
         }
 
+        // swaps the bool at the first given index with the bool at the second given index
         void swap(int index1, int index2) {
             int temp = data_[index1];
             data_[index1] = data_[index2];
             data_[index2] = temp;
         }
 
+        // removes and returns the bool at the given index
+        // pushes the rest of the array down
         bool remove(int index) {
             bool temp = data_[index];
             for (int ii = index + 1; ii < size_; ii++) {
@@ -354,6 +397,7 @@ class BoolArray : public Object {
             return temp;
         }
 
+        // returns the size of the array
         size_t size() {
             return size_;
         }
