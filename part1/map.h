@@ -8,62 +8,88 @@
 // Later a list of Hashmap_pair will be stored into Hashmap data structure.
 // It inherit Object class.
 class Hashmap_pair : public Object {
-    public:
-        Object* key_;
-        Object* val_;
-        Hashmap_pair(Object *key, Object *val) : Object() {
-            key_ = key;
-            val_ = val;
-        }
-        ~Hashmap_pair() {
-            delete key_;
-            delete val_;
-        }
-};
+  public:
+    Object *key_;
+    Object *val_;
+
+    Hashmap_pair(Object *key, Object *val) : Object() {
+        key_ = key;
+        val_ = val;
+    }
+    ~Hashmap_pair() {
+        delete key_;
+        delete val_;
+}
+
+    // getter method that help to get value from Hashmap_pair.
+    Object* getVal() { return val_; }
+
+    // getter method that help to get key from Hashmap_pair.
+    Object* getKey() { return key_; }
+    };
 
 // Hashmap class stores a list of hashmap_pairs, which contains equal number
 // of keys and values.
 // It has size and capcity, which size is the number of key-value pairs,
 // and capcity is the physical size of hashmap.
 class Hashmap : public Object {
-    public:
-        Hashmap_pair **data;
-        size_t size_;
-        size_t capacity_;
-        
-        //constructor
-        //capcity will be initilized as 4, size is 0 by default.
-        Hashmap() {
-            data = new Hashmap_pair*[4];
-            size_ = 0;
-            capacity_ = 4;
+  public:
+    Hashmap_pair **data;
+    size_t size_;
+    size_t capacity_;
+
+    // constructor
+    // capcity will be initilized as 4, size is 0 by default.
+    Hashmap() {
+        data = new Hashmap_pair *[4];
+        size_ = 0;
+        capacity_ = 4;
+    }
+
+    // destructor
+    ~Hashmap() { delete[] data; }
+
+    // hash and return unique hashcode. two hashmaps with 
+    // same hashmap_pairs should have the same hashcode.
+    size_t hash();
+
+    // Double the capacity of hashmap when needed
+    void expand() {
+        capacity_ = capacity_ * 2;
+        Hashmap_pair** new_data = new Hashmap_pair*[capacity_];
+        for (int ii = 0; ii < size_; ii++) {
+            new_data[ii] = data[ii];
         }
+        delete data[];
+        data = new_data;
+    }
 
-        // destructor
-        ~Hashmap() {
-            delete [] data;
+    // Returns the value to which the specified key is mapped,
+    // or null if this map contains no mapping for the key.
+    Object *get(Object *key);
+
+    // Associates the specified value with the specified key in this map.
+    void put(Object *key, Object *val);
+
+    // Removes the mapping for the specified key from this map if present.
+    void remove(Object *key);
+
+    // Returns the number of key-value mappings in this map.
+    size_t size() {
+        return size_;
+    }
+
+    // Returns a list view of the keys contained in this map.
+    Object **key_array();
+
+    // Check if two Hashmaps are equal.
+    // the input hashmap is an object.
+    bool equals(Object *map) {
+        Hashmap* m = dynamic_cast<Hashmap*>(map);
+        if (m == NULL) return 0;
+        for (int ii = 0; ii < size_; ii++) {
+            if (!data[ii]->equals(m->data[ii])) return 0;
         }
-
-        // Double the capacity of hashmap when needed
-        void expand();
-
-        // Returns the value to which the specified key is mapped, 
-        // or null if this map contains no mapping for the key.
-        Object* get(Object *key);
-
-        // Associates the specified value with the specified key in this map.
-        void put(Object *key, Object *val);
-
-        // Removes the mapping for the specified key from this map if present.
-        void remove(Object *key);
-
-        // Returns the number of key-value mappings in this map.
-        size_t size();
-
-        // Returns a list view of the keys contained in this map.
-        Object** key_array();
-
-        // Check if two Hashmaps are equal.
-        // the input hashmap is an object.
-        bool equals(Object *map);
+        return size() == m->size();
+    }
 };
