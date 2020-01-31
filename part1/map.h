@@ -56,8 +56,8 @@ class Hashmap : public Object {
 
     // destructor
     ~Hashmap() {
-        delete[] data;
-        delete[] indeces;
+        delete data;
+        delete indeces;
     }
 
     // hash and return unique hashcode. two hashmaps with 
@@ -128,8 +128,10 @@ class Hashmap : public Object {
     // Removes the mapping for the specified key from this map if present.
     void remove(Object *key) {
         size_t index = index_key(key);
+        Object* pair = data->remove(index);
         if (data->remove(index) == NULL) return;
 
+        delete pair;
         // remove index from indeces as well
         for (size_t ii = 0; ii < indeces->size(); ii++) {
             if (indeces->get(ii) == index) {
