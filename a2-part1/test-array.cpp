@@ -1,9 +1,8 @@
-
 #include "array.h"
 #include <assert.h>
 
 Array* create_array(){
-    return 0;
+    return new Array();
 }
 
 void test_get() {
@@ -73,7 +72,8 @@ void test_FloatArray() {
     ia->push_back(3.1);
     ia->push_back(6.2);
     assert(ia->size() == 2);
-    assert(ia->remove(0) == 3.1);
+    float temp = ia->remove(0);
+    assert(temp > 3.09999 && temp < 3.1001);
     assert(ia->size() == 1);
 }
 
