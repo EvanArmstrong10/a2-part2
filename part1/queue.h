@@ -11,7 +11,7 @@ class Queue : public Object
 
         Object** queue_;
         size_t size_;
-        int capacity_;
+        size_t  capacity_;
 
         // Constructor
         Queue() : Object()
@@ -24,20 +24,18 @@ class Queue : public Object
         // Deconstructor
         virtual ~Queue()
         {
+            delete[] queue_;
         }
 
         void double_capacity() 
         {
-        Object** temp = new Object*[capacity_ * 2];
+        capacity_ *= 2;
+        Object** temp = new Object*[capacity_];
         for (size_t x = 0; x < size_; x++) {
             temp[x] = queue_[x];
         }
-        if (size_ > 0) {
-            delete[] queue_;
-        }
+        delete[] queue_;
         queue_ = temp;
-        capacity_ *= 2;
-        delete[] temp;
     }
 
 
@@ -51,13 +49,9 @@ class Queue : public Object
         {
             if (at_capacity()) {
                 double_capacity();
-                queue_[size_] = item_;
-                size_ ++;
             }
-            else {
-                queue_[size_] = item_;
-                size_ ++;
-            }
+            queue_[size_] = item_;
+            size_ ++;
         }
 
         // Removes the head Object from the Queue
@@ -67,14 +61,12 @@ class Queue : public Object
             if (size_ == 0) {
                 return NULL;
             }
-            else {
-                Object *temp_ = queue_[0];
-                for (size_t x = 0; x < size_ - 1; x++) {
-                    queue_[x] = queue_[x+1];
-                }
-                size_ --;
-                return temp_;
+            Object *temp_ = queue_[0];
+            for (size_t x = 0; x < size_ - 1; x++) {
+                queue_[x] = queue_[x+1];
             }
+            size_ --;
+            return temp_;
         }
 
         // Returns the head Object of the Queue without removing it
@@ -89,24 +81,19 @@ class Queue : public Object
         }
 
         // Returns the element at index
-        Object*  get(size_t index) {
+        Object* get(size_t index) {
             return queue_[index];
         }
 
         // Checks to see if the Queue contains a specific Object already
         bool contains(Object *o)
         {
-            if (size_ == 0) {
-                return false;
-            }
-            else {
-                for (size_t x = 0; x < size_; x++) {
-                    if (get(x)->equals(o)) {
-                        return true;
-                    }
+            for (size_t x = 0; x < size_; x++) {
+                if (get(x)->equals(o)) {
+                    return true;
                 }
-                return false;
             }
+            return false;
         }
 
         // Combines a given Queue into this Queue
@@ -123,6 +110,7 @@ class Queue : public Object
             delete queue_;
             queue_ = new Object*[2];
             size_ = 0;
+            capacity_ = 2;
         }
 
         // Returns size of queue
@@ -135,20 +123,13 @@ class Queue : public Object
         bool equals(Object *o)
         {
             Queue* temp = dynamic_cast<Queue*>(o);
-            if (size_ != temp->size_) {
-                return false;
-            }
-            else if (temp == 0 && size_ != 0) {
-                return false;
-            }
-            else {
-                for (size_t x = 0; x < size_; x++) {
-                    if (!(temp->queue_[x]->equals(queue_[x]))) {
-                        return false;
-                    }
+            if (temp == 0) return false;
+            for (size_t x = 0; x < size_; x++) {
+                if (!(temp->queue_[x]->equals(queue_[x]))) {
+                    return false;
                 }
             }
-            return true;
+            return size_ == temp->queue_size();
         }
 
         // Generates a hash value for this Object
