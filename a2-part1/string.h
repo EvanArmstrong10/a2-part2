@@ -2,9 +2,9 @@
 #pragma once
 
 #include "object.h"
-//#include <cstdlib>
+//#include <stdlib.h>
 #include <string.h>
-//#include <cstdio> 
+#include <stdio.h>
 
 /**
  * An immutable String class representing a char*
@@ -19,19 +19,25 @@ public:
 
   /* Creates a String copying s */
   String(const char* s) {
-    char* val_ = new char[strlen(s) + 1];                                         
-    strcpy(val_, s);
+        char* s1 = const_cast<char*>(s);
+        size_ = strlen(s1);
+        val_ = new char[size_];
+        for (size_t ii = 0; ii < size_; ii++) {
+            val_[ii] = s1[ii];
+        }
+        val_[size_] = 0;
   }
 
   /* Copies a String copying the value from s */
   String(String* const s) {
-      val_ = new char[s->size()];
-      val_ = s->val_;
+    val_ = new char[s->size()];
+    strcpy(val_, s->val_);
+    size_ = s->size();
   }
 
   /* Clears String from memory */
   ~String() {
-      delete[] val_;
+    delete[] val_;
   }
 
 
@@ -49,6 +55,7 @@ public:
   /* Inherited from Object, checks equality between an String and an Object */
   // professor provided
   bool equals(Object* const obj) {
+    puts(val_);
     if (obj == nullptr) return false;
     String* tgt = dynamic_cast<String*>(obj);
     if (tgt == nullptr) return false;
@@ -69,12 +76,14 @@ public:
 
   /* Creates a new String by combining two existing Strings */
   String* concat(String* const s) {
-    char* res = new char[size_ + s->size() + 1];                             
-    for (size_t i = 0; i < size_; i++)                                           
-        res[i] = val_[i];                                                          
-    for (size_t i = size_, j = 0; i < size_ + s->size(); i++, j++)           
-        res[i] = val_[j];                                                          
-    res[size_] = '\0';                                                           
+    char* res = new char[size_ + s->size() + 1];
+    for (size_t i = 0; i < size_; i++) {
+        res[i] = val_[i];
+    }
+    for (size_t i = size_, j = 0; j < s->size(); i++, j++) {
+        res[i] = s->val_[j];
+    }
+    res[size_ + s->size()] = '\0';
     return new String(res);
   }
 
