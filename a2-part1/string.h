@@ -21,7 +21,8 @@ public:
   String(const char* s) {
         char* s1 = const_cast<char*>(s);
         size_ = strlen(s1);
-        val_ = new char[size_];
+        printf("%i\n", size_);
+        val_ = new char[size_+1];
         for (size_t ii = 0; ii < size_; ii++) {
             val_[ii] = s1[ii];
         }
@@ -30,7 +31,7 @@ public:
 
   /* Copies a String copying the value from s */
   String(String* const s) {
-    val_ = new char[s->size()];
+    val_ = new char[s->size()+1];
     strcpy(val_, s->val_);
     size_ = s->size();
   }
