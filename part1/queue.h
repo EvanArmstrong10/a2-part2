@@ -135,12 +135,15 @@ class Queue : public Object
         bool equals(Object *o)
         {
             Queue* temp = dynamic_cast<Queue*>(o);
-            if (temp == 0 || size_ != temp->size_) {
+            if (size_ != temp->size_) {
+                return false;
+            }
+            else if (temp == 0 && size_ != 0) {
                 return false;
             }
             else {
                 for (size_t x = 0; x < size_; x++) {
-                    if (temp->queue_[x]->equals(queue_[x])) {
+                    if (!(temp->queue_[x]->equals(queue_[x]))) {
                         return false;
                     }
                 }
