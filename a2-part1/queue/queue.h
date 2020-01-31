@@ -120,12 +120,6 @@ public:
         return size_;
     }
 
-    // Prints contents of the Queue
-    void print_queue()
-    {
-
-    }
-
     // Checks for equality between this Queue and the Object passed in
     bool equals(Object *o)
     {
