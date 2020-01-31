@@ -1,9 +1,8 @@
-
 #include "array.h"
 #include <assert.h>
 
 Array* create_array(){
-    return 0;
+    return new Array();
 }
 
 void test_get() {
@@ -11,7 +10,7 @@ void test_get() {
     String* s = new String("Fling");
     a->set(0, s);
     assert(a->get(0)->equals(s));
-    delete a;
+    delete[] a;
 }
 
 void test_set() {
@@ -19,7 +18,6 @@ void test_set() {
     String* s = new String("Fling");
     a->set(0, s);
     assert(a->data_[0]->equals(s));
-    delete a;
 }
 
 void test_push_back() {
@@ -27,7 +25,6 @@ void test_push_back() {
     String* s = new String("Fling");
     a->push_back(s);
     assert(1 == a->size());
-    delete a;
 }
 
 void test_swap() {
@@ -73,7 +70,8 @@ void test_FloatArray() {
     ia->push_back(3.1);
     ia->push_back(6.2);
     assert(ia->size() == 2);
-    assert(ia->remove(0) == 3.1);
+    float temp = ia->remove(0);
+    assert(temp > 3.09999 && temp < 3.1001);
     assert(ia->size() == 1);
 }
 

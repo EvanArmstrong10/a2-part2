@@ -2,6 +2,7 @@
 #pragma once
 #include "object.h"
 #include "string.h"
+#include "stdio.h"
 
 class Array : public Object {
     public:
@@ -25,12 +26,11 @@ class Array : public Object {
         virtual void resize_() {
             capacity_ = capacity_ * 2;
             Object** new_data = new Object*[capacity_];
-            for (int ii; ii < size_; ii++) {
+            for (int ii = 0; ii < size_; ii++) {
                 new_data[ii] = data_[ii];
             }
             delete[] data_;
             data_ = new_data;
-            size_++;
         }
 
         // returns the element at the given index
@@ -50,6 +50,7 @@ class Array : public Object {
                     resize_();
                 }
                 data_[index] = element;
+                size_++;
             }
         }
         
@@ -57,10 +58,8 @@ class Array : public Object {
             if (capacity_ == size_) {
                 resize_();
             }
-            else {
-                data_[size_] = element;
-                size_++;
-            }
+            data_[size_] = element;
+            size_++;
         }
 
         virtual void swap(int index1, int index2) {
@@ -100,12 +99,11 @@ class StrArray : public Array {
         void resize_() {
             capacity_ = capacity_ * 2;
             String** new_data = new String*[capacity_];
-            for (int ii; ii < size_; ii++) {
+            for (int ii = 0; ii < size_; ii++) {
                 new_data[ii] = data_[ii];
             }
             delete[] data_;
             data_ = new_data;
-            size_++;
         }
 
         String* get(int index) {
@@ -123,6 +121,7 @@ class StrArray : public Array {
                     resize_();
                 }
                 data_[index] = element;
+                size_++;
             }
         }
 
@@ -130,10 +129,8 @@ class StrArray : public Array {
             if (capacity_ == size_) {
                 resize_();
             }
-            else {
-                data_[size_] = element;
-                size_++;
-            }
+            data_[size_] = element;
+            size_++;
         }
 
         String* remove(int index) {
@@ -165,15 +162,15 @@ class IntArray : public Object {
         void resize_() {
             capacity_ = capacity_ * 2;
             int* new_data = new int[capacity_];
-            for (int ii; ii < size_; ii++) {
+            for (int ii = 0; ii < size_; ii++) {
                 new_data[ii] = data_[ii];
             }
             delete[] data_;
             data_ = new_data;
-            size_++;
         }
 
         int get(int index) {
+            printf("%i %i\n", size_, index);
             if (index >= 0 && index < size_) {
                 return data_[index];
             }
@@ -185,6 +182,7 @@ class IntArray : public Object {
                     resize_();
                 }
                 data_[index] = element;
+                size_++;
             }
         }
 
@@ -192,10 +190,8 @@ class IntArray : public Object {
             if (capacity_ == size_) {
                 resize_();
             }
-            else {
-                data_[size_] = element;
-                size_++;
-            }
+            data_[size_] = element;
+            size_++;
         }
 
         void swap(int index1, int index2) {
@@ -237,12 +233,11 @@ class FloatArray : public Object {
         void resize_() {
             capacity_ = capacity_ * 2;
             float* new_data = new float[capacity_];
-            for (int ii; ii < size_; ii++) {
+            for (int ii = 0; ii < size_; ii++) {
                 new_data[ii] = data_[ii];
             }
             delete[] data_;
             data_ = new_data;
-            size_++;
         }
 
         float get(int index) {
@@ -257,6 +252,7 @@ class FloatArray : public Object {
                     resize_();
                 }
                 data_[index] = element;
+                size_++;
             }
         }
 
@@ -264,10 +260,8 @@ class FloatArray : public Object {
             if (capacity_ == size_) {
                 resize_();
             }
-            else {
-                data_[size_] = element;
-                size_++;
-            }
+            data_[size_] = element;
+            size_++;
         }
 
         void swap(int index1, int index2) {
@@ -309,12 +303,11 @@ class BoolArray : public Object {
         void resize_() {
             capacity_ = capacity_ * 2;
             bool* new_data = new bool[capacity_];
-            for (int ii; ii < size_; ii++) {
+            for (int ii = 0; ii < size_; ii++) {
                 new_data[ii] = data_[ii];
             }
             delete[] data_;
             data_ = new_data;
-            size_++;
         }
 
         bool get(int index) {
@@ -329,6 +322,7 @@ class BoolArray : public Object {
                     resize_();
                 }
                 data_[index] = element;
+                size_++;
             }
         }
 
@@ -336,10 +330,8 @@ class BoolArray : public Object {
             if (capacity_ == size_) {
                 resize_();
             }
-            else {
-                data_[size_] = element;
-                size_++;
-            }
+            data_[size_] = element;
+            size_++;
         }
 
         void swap(int index1, int index2) {
